@@ -1,3 +1,5 @@
+package org.jfree.test;
+
 import org.jfree.data.Range;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

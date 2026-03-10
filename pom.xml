@@ -10,19 +10,19 @@
         <!-- <exec.mainClass>org.ucalgary.SENG637A3.SENG637Assignment3</exec.mainClass> -->
     </properties>
 
-    <build>
+    <!-- <build>
         <testSourceDirectory>src/test</testSourceDirectory>
-    </build>
+    </build> -->
 
     <dependencies>
         <!--  JFreeChart - Provided JAR  -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/JFreeChart/jfreechart.jar</systemPath>
-        </dependency>
+        </dependency> -->
         <!--  JCommon - Required by JFreeChart  -->
         <dependency>
             <groupId>org.jfree</groupId>
