@@ -10,5 +10,6 @@
         "exclude": [
             "lib/JFreeChart/jfreechart.jar"
         ]
-    }
+    },
+    "java.debug.settings.onBuildFailureProceed": true
 }
