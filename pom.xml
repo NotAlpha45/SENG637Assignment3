@@ -10,9 +10,9 @@
         <!-- <exec.mainClass>org.ucalgary.SENG637A3.SENG637Assignment3</exec.mainClass> -->
     </properties>
 
-    <!-- <build>
+    <build>
         <testSourceDirectory>src/test</testSourceDirectory>
-    </build> -->
+    </build>
 
     <dependencies>
         <!--  JFreeChart - Provided JAR  -->
