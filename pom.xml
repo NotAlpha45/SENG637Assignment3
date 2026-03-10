@@ -7,7 +7,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
-        <exec.mainClass>org.ucalgary.SENG637A3.SENG637Assignment3</exec.mainClass>
+        <!-- <exec.mainClass>org.ucalgary.SENG637A3.SENG637Assignment3</exec.mainClass> -->
     </properties>
 
     <dependencies>
