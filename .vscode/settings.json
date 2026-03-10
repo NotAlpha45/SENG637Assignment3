@@ -1,3 +1,14 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/JFreeChart/lib/jcommon-1.0.5.jar",
+            "lib/JFreeChart/lib/junit.jar",
+            "lib/JFreeChart/lib/hamcrest-core-1.1.jar",
+            "lib/JFreeChart/lib/hamcrest-library-1.1.jar"
+        ],
+        "exclude": [
+            "lib/JFreeChart/jfreechart.jar"
+        ]
+    }
 }
