@@ -78,5 +78,21 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/JFreeChart/lib/hamcrest-library-1.1.jar</systemPath>
         </dependency>
+        <!--  jMock (Mockery) for mocking in tests  -->
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock</artifactId>
+            <version>2.5.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/JFreeChart/lib/jMock/jmock-2.5.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock-junit4</artifactId>
+            <version>2.5.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/JFreeChart/lib/jMock/jmock-junit4-2.5.1.jar</systemPath>
+        </dependency>
+        
     </dependencies>
 </project>
