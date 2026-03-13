@@ -1,15 +1,14 @@
-
-
 # SENG 637 - Dependability and Reliability of Software Systems
 
 ## Lab Report #3 – Code Coverage, Adequacy Criteria and Test Case Correlation
 
-| Group #       |  9 |
-| ------------- | - |
-| Student Names |   |
-|               |   |
-|               |   |
-|               |   |
+| Group #       |     |
+| ------------- | --- |
+| Student Names |     |
+|               |     |
+|               |     |
+|               |     |
+
 ---
 
 # 1 Introduction
@@ -26,15 +25,14 @@ In addition to automated coverage measurement, this assignment also introduces d
 
 The objectives of this assignment are therefore threefold: to measure the adequacy of an existing test suite using coverage tools, to design additional unit tests that increase structural coverage, and to manually analyze data-flow coverage for selected methods. Through these activities, the assignment demonstrates how coverage-based testing techniques can be used to systematically improve test effectiveness while highlighting both the strengths and limitations of coverage metrics as indicators of software quality.
 
-
 ---
 
 # 2 Manual Data-Flow Coverage Calculations for X and Y Methods
 
 Manual data-flow analysis was conducted for the following methods within the `DataUtilities` class:
 
-* `calculateColumnTotal`
-* `calculateRowTotal`
+- `calculateColumnTotal`
+- `calculateRowTotal`
 
 Data-flow testing evaluates the relationships between **variable definitions (def)** and **subsequent uses (use)** along feasible execution paths in the control flow of a program. The objective of this analysis is to identify **Definition–Use (DU) pairs**, which capture how data values propagate through the program and influence computation. By examining DU pairs, testers can determine whether the test suite adequately exercises all meaningful data dependencies within the system under test.
 
@@ -42,12 +40,12 @@ The method `calculateColumnTotal` was selected for detailed analysis. This metho
 
 The primary variables involved in the computation include:
 
-* `data`
-* `column`
-* `rowCount`
-* `total`
-* loop control variables (`r`, `r2`)
-* intermediate numeric values (`n1`, `n2`)
+- `data`
+- `column`
+- `rowCount`
+- `total`
+- loop control variables (`r`, `r2`)
+- intermediate numeric values (`n1`, `n2`)
 
 ---
 
@@ -55,22 +53,22 @@ The primary variables involved in the computation include:
 
 The **Data Flow Graph (DFG)** illustrates the propagation of variable definitions and uses across the control flow of the `calculateColumnTotal` method.
 
-*(Insert Data Flow Graph Image Here)*
+_(Insert Data Flow Graph Image Here)_
 
 ```<img width="1015" height="1124" alt="image7" src="https://github.com/user-attachments/assets/3b8f4f96-93f5-4c89-81e7-26ea9173cc04" />
 
-[ DATA FLOW GRAPH IMAGE PLACEHOLDER ]
+[ DATA FLOW GRAPH IMAGE P<img width="1015" height="1124" alt="image7" src="https://github.com/user-attachments/assets/5527dc6d-3246-4dd4-a6fd-b276f77057ec" />
+LACEHOLDER ]
 ```
 
 ### Notes
 
-* The `for` loop statement was decomposed into **three separate logical statements** for the purpose of data-flow analysis:
+- The `for` loop statement was decomposed into **three separate logical statements** for the purpose of data-flow analysis:
+  - loop initialization
+  - loop condition comparison
+  - loop increment
 
-  * loop initialization
-  * loop condition comparison
-  * loop increment
-
-* The original loop variable `n` was renamed to **`n1` and `n2`** during analysis to avoid ambiguity when identifying definition–use relationships.
+- The original loop variable `n` was renamed to **`n1` and `n2`** during analysis to avoid ambiguity when identifying definition–use relationships.
 
 This decomposition simplifies the identification of variable definitions and uses within iterative constructs and enables more precise tracking of DU pairs.
 
@@ -110,14 +108,14 @@ The following table lists all **Definition–Use pairs identified for each varia
 
 | Variable | DU-pairs                                                                              |
 | -------- | ------------------------------------------------------------------------------------- |
-| data     | (123,124), (123,126), (123,128), (123,134 *not reachable*)                            |
-| column   | (123,128), (123,134 *not reachable*)                                                  |
-| total    | (125,130), (125,136 *not reachable*), (125,139), (130,139), (136 *not reachable*,139) |
+| data     | (123,124), (123,126), (123,128), (123,134 _not reachable_)                            |
+| column   | (123,128), (123,134 _not reachable_)                                                  |
+| total    | (125,130), (125,136 _not reachable_), (125,139), (130,139), (136 _not reachable_,139) |
 | rowCount | (126,127), (126,133)                                                                  |
 | r        | (127,127), (127,128)                                                                  |
 | n1       | (128,129), (128,130)                                                                  |
-| r2       | (133,133), (133,134 *not reachable*)                                                  |
-| n2       | (134 *not reachable*,135 *not reachable*), (134 *not reachable*,136 *not reachable*)  |
+| r2       | (133,133), (133,134 _not reachable_)                                                  |
+| n2       | (134 _not reachable_,135 _not reachable_), (134 _not reachable_,136 _not reachable_)  |
 
 Some DU pairs are marked as **not reachable** because the corresponding control-flow paths cannot be executed due to program logic constraints.
 
@@ -169,20 +167,17 @@ Since `rowCount` represents the number of rows in the dataset and therefore cann
 
 As a result:
 
-* DU pairs involving variable `n2` cannot be exercised.
-* Complete DU coverage is **not theoretically achievable** for this method.
+- DU pairs involving variable `n2` cannot be exercised.
+- Complete DU coverage is **not theoretically achievable** for this method.
 
 Similar infeasible structures were also identified in the methods:
 
-* `calculateRowTotal`
-* `getCumulativePercentages`
+- `calculateRowTotal`
+- `getCumulativePercentages`
 
 Therefore, the maximum achievable data-flow coverage corresponds to the **set of reachable DU pairs rather than the full theoretical set**.
 
 ---
-Great — the **next section in your template is Section 3: Testing Strategy**, and we will convert your **Test Plan for DataUtilities** into a **PI-level structured section** while **keeping all your content** and **leaving space for the screenshots/images exactly like your PDF shows**. The screenshots from your document (for infeasible paths, line coverage, branch coverage, etc.) should be inserted where indicated. 
-
-Below is **ONLY Section 3**, ready to paste.
 
 ---
 
@@ -218,7 +213,7 @@ for (int r2 = 0; r2 > rowCount; r2++)
 
 Because `rowCount` represents the number of rows in the dataset and therefore cannot be negative, the condition `r2 > rowCount` evaluates to **false during the first iteration**. As a result, the entire loop body becomes unreachable.
 
-*(Insert Screenshot – Infeasible loop in calculateColumnTotal)*
+_(Insert Screenshot – Infeasible loop in calculateColumnTotal)_
 
 ```text
 [ IMAGE PLACEHOLDER – calculateColumnTotal infeasible loop ]
@@ -234,7 +229,7 @@ for (int c2 = 0; c2 > columnCount; c2++)
 
 Since `columnCount` cannot be negative, the loop condition is never satisfied, making this loop unreachable.
 
-*(Insert Screenshot – Infeasible loop in calculateRowTotal)*
+_(Insert Screenshot – Infeasible loop in calculateRowTotal)_
 
 ```text
 [ IMAGE PLACEHOLDER – calculateRowTotal infeasible loop ]
@@ -250,11 +245,7 @@ for (int i2 = 0; i2 > data.getItemCount(); i2++)
 
 Because `data.getItemCount()` represents the number of items in the dataset and cannot be negative, the condition is never satisfied, resulting in an unreachable loop body.
 
-*(Insert Screenshot – Infeasible loop in getCumulativePercentages)*
-
-```text
-[ IMAGE PLACEHOLDER – getCumulativePercentages infeasible loop ]
-```
+![Figure : Unreachable loop in getCumulativePercentages](images/image1.png)
 
 These infeasible paths reduce the maximum achievable structural coverage for the methods.
 
@@ -268,7 +259,7 @@ Line coverage was evaluated to determine whether all executable statements were 
 
 No additional test cases were required because the existing tests already cover the **maximum number of feasible lines**.
 
-*(Insert Screenshot – createNumberArray coverage)*
+_(Insert Screenshot – createNumberArray coverage)_
 
 ```text
 [ IMAGE PLACEHOLDER – createNumberArray coverage ]
@@ -278,7 +269,7 @@ No additional test cases were required because the existing tests already cover 
 
 No additional test cases were required since all feasible lines were already covered.
 
-*(Insert Screenshot – createNumberArray2D coverage)*
+_(Insert Screenshot – createNumberArray2D coverage)_
 
 ```text
 [ IMAGE PLACEHOLDER – createNumberArray2D coverage ]
@@ -288,7 +279,7 @@ No additional test cases were required since all feasible lines were already cov
 
 All feasible statements were already covered by the existing test cases.
 
-*(Insert Screenshot – calculateColumnTotal coverage)*
+_(Insert Screenshot – calculateColumnTotal coverage)_
 
 ```text
 [ IMAGE PLACEHOLDER – calculateColumnTotal coverage ]
@@ -298,7 +289,7 @@ All feasible statements were already covered by the existing test cases.
 
 Similarly, the maximum feasible line coverage was already achieved.
 
-*(Insert Screenshot – calculateRowTotal coverage)*
+_(Insert Screenshot – calculateRowTotal coverage)_
 
 ```text
 [ IMAGE PLACEHOLDER – calculateRowTotal coverage ]
@@ -308,7 +299,7 @@ Similarly, the maximum feasible line coverage was already achieved.
 
 The existing tests already achieved the maximum feasible line coverage.
 
-*(Insert Screenshot – getCumulativePercentages coverage)*
+_(Insert Screenshot – getCumulativePercentages coverage)_
 
 ```text
 [ IMAGE PLACEHOLDER – getCumulativePercentages coverage ]
@@ -318,7 +309,7 @@ The existing tests already achieved the maximum feasible line coverage.
 
 The coverage results confirm that all feasible lines have been executed.
 
-*(Insert Screenshot – Line Coverage Results Table)*
+_(Insert Screenshot – Line Coverage Results Table)_
 
 ```text
 [ IMAGE PLACEHOLDER – line coverage results ]
@@ -344,7 +335,7 @@ No additional test cases were required.
 
 One additional test case was created to exercise the condition in **line 129** by inserting a **null value into the `Values2D` dataset**.
 
-*(Insert Screenshot – Branch coverage in calculateColumnTotal)*
+_(Insert Screenshot – Branch coverage in calculateColumnTotal)_
 
 ```text
 [ IMAGE PLACEHOLDER – calculateColumnTotal branch coverage ]
@@ -354,7 +345,7 @@ One additional test case was created to exercise the condition in **line 129** b
 
 Similar to `calculateColumnTotal`, an additional test case was added to cover the conditional check by inserting a **null value into the dataset**.
 
-*(Insert Screenshot – Branch coverage in calculateRowTotal)*
+_(Insert Screenshot – Branch coverage in calculateRowTotal)_
 
 ```text
 [ IMAGE PLACEHOLDER – calculateRowTotal branch coverage ]
@@ -364,7 +355,7 @@ Similar to `calculateColumnTotal`, an additional test case was added to cover th
 
 No additional test cases were required because the maximum feasible branch coverage had already been achieved.
 
-*(Insert Screenshot – getCumulativePercentages branch coverage)*
+_(Insert Screenshot – getCumulativePercentages branch coverage)_
 
 ```text
 [ IMAGE PLACEHOLDER – getCumulativePercentages branch coverage ]
@@ -372,7 +363,7 @@ No additional test cases were required because the maximum feasible branch cover
 
 ### Branch Coverage Results
 
-*(Insert Screenshot – Branch Coverage Results Table)*
+_(Insert Screenshot – Branch Coverage Results Table)_
 
 ```text
 [ IMAGE PLACEHOLDER – branch coverage results ]
@@ -388,7 +379,7 @@ Because none of the evaluated coverage tools supported **condition coverage**, m
 
 No additional test cases were required since all methods were already exercised by the test suite.
 
-*(Insert Screenshot – Method Coverage Results Table)*
+_(Insert Screenshot – Method Coverage Results Table)_
 
 ```text
 [ IMAGE PLACEHOLDER – method coverage results ]
@@ -400,14 +391,13 @@ No additional test cases were required since all methods were already exercised 
 
 Finally, data flow coverage was analyzed for the `calculateColumnTotal` method to evaluate whether the designed test cases exercised the identified **definition–use pairs**.
 
-*(Insert Screenshot – Data Flow Coverage for calculateColumnTotal)*
+_(Insert Screenshot – Data Flow Coverage for calculateColumnTotal)_
 
 ```text
 [ IMAGE PLACEHOLDER – data flow coverage screenshot ]
 ```
 
 The results confirm that the feasible DU pairs associated with the main computation loop are exercised by the designed test cases.
-
 
 ---
 
@@ -427,9 +417,9 @@ The objective of this test is to verify the normal behavior of the aggregation l
 
 **Coverage Contribution**
 
-* Executes the primary loop structure in the method.
-* Covers the statements responsible for retrieving dataset values and updating the running total.
-* Improves **line coverage** for the core aggregation logic.
+- Executes the primary loop structure in the method.
+- Covers the statements responsible for retrieving dataset values and updating the running total.
+- Improves **line coverage** for the core aggregation logic.
 
 ---
 
@@ -447,9 +437,9 @@ if (n != null)
 
 **Coverage Contribution**
 
-* Executes both the **true** and **false** outcomes of the conditional statement.
-* Improves **branch coverage** for the null-check condition.
-* Ensures the method correctly ignores null values during aggregation.
+- Executes both the **true** and **false** outcomes of the conditional statement.
+- Improves **branch coverage** for the null-check condition.
+- Ensures the method correctly ignores null values during aggregation.
 
 ---
 
@@ -463,9 +453,9 @@ The objective is to verify that the method behaves correctly when there are no e
 
 **Coverage Contribution**
 
-* Exercises the loop boundary condition where the iteration count is zero.
-* Confirms that the method correctly returns a total of zero without errors.
-* Improves coverage of loop termination logic.
+- Exercises the loop boundary condition where the iteration count is zero.
+- Confirms that the method correctly returns a total of zero without errors.
+- Improves coverage of loop termination logic.
 
 ---
 
@@ -479,9 +469,9 @@ The goal of this test is to evaluate how the method handles minimal input sizes.
 
 **Coverage Contribution**
 
-* Executes the loop exactly once.
-* Tests boundary conditions related to minimal dataset size.
-* Confirms that the aggregation logic functions correctly when the dataset contains only one element.
+- Executes the loop exactly once.
+- Tests boundary conditions related to minimal dataset size.
+- Confirms that the aggregation logic functions correctly when the dataset contains only one element.
 
 ---
 
@@ -495,9 +485,9 @@ The objective of this test is to simulate a realistic dataset scenario and verif
 
 **Coverage Contribution**
 
-* Exercises repeated iterations of the main loop.
-* Confirms that values are retrieved correctly from the dataset structure.
-* Improves **overall structural coverage** across multiple iterations.
+- Exercises repeated iterations of the main loop.
+- Confirms that values are retrieved correctly from the dataset structure.
+- Improves **overall structural coverage** across multiple iterations.
 
 ---
 
@@ -505,9 +495,9 @@ The objective of this test is to simulate a realistic dataset scenario and verif
 
 Coverage analysis was conducted to evaluate the adequacy of the test suite for the `DataUtilities` class. The analysis focused on three structural coverage metrics:
 
-* **Line coverage**
-* **Branch coverage**
-* **Method coverage**
+- **Line coverage**
+- **Branch coverage**
+- **Method coverage**
 
 These metrics provide quantitative insight into how effectively the unit tests exercise the internal logic of the system under test.
 
@@ -519,21 +509,21 @@ Line coverage measures the proportion of executable statements that are executed
 
 The coverage analysis showed that several methods in the `DataUtilities` class already achieved **maximum feasible line coverage**. In particular, the following methods required **no additional test cases** because all reachable statements were already exercised by the existing tests:
 
-* `createNumberArray`
-* `createNumberArray2D`
-* `calculateColumnTotal`
-* `calculateRowTotal`
-* `getCumulativePercentages`
+- `createNumberArray`
+- `createNumberArray2D`
+- `calculateColumnTotal`
+- `calculateRowTotal`
+- `getCumulativePercentages`
 
 The line coverage results are shown below.
 
-*(Insert Screenshot – Line Coverage Results)*
+_(Insert Screenshot – Line Coverage Results)_
 
 ```
 [ IMAGE PLACEHOLDER – Line Coverage Results ]
 ```
 
-According to the coverage report, the `DataUtilities` class achieved a high level of statement execution, and the remaining uncovered lines correspond primarily to infeasible code paths. The coverage table presented in the screenshot illustrates the percentage of covered lines and the number of executed statements for each method. 
+According to the coverage report, the `DataUtilities` class achieved a high level of statement execution, and the remaining uncovered lines correspond primarily to infeasible code paths. The coverage table presented in the screenshot illustrates the percentage of covered lines and the number of executed statements for each method.
 
 ---
 
@@ -547,7 +537,7 @@ For most methods in the `DataUtilities` class, the existing tests already covere
 
 An additional test case was designed to exercise the conditional check in **line 129** by introducing a **null value in the `Values2D` dataset**.
 
-*(Insert Screenshot – Branch coverage for calculateColumnTotal)*
+_(Insert Screenshot – Branch coverage for calculateColumnTotal)_
 
 ```
 [ IMAGE PLACEHOLDER – calculateColumnTotal branch coverage ]
@@ -557,7 +547,7 @@ An additional test case was designed to exercise the conditional check in **line
 
 Similarly, an additional test case was added to trigger the conditional branch in `calculateRowTotal` by inserting a **null value in the dataset**.
 
-*(Insert Screenshot – Branch coverage for calculateRowTotal)*
+_(Insert Screenshot – Branch coverage for calculateRowTotal)_
 
 ```
 [ IMAGE PLACEHOLDER – calculateRowTotal branch coverage ]
@@ -567,7 +557,7 @@ Similarly, an additional test case was added to trigger the conditional branch i
 
 No new test cases were required for this method because the existing tests already achieved the maximum feasible branch coverage.
 
-*(Insert Screenshot – Branch coverage results table)*
+_(Insert Screenshot – Branch coverage results table)_
 
 ```
 [ IMAGE PLACEHOLDER – Branch Coverage Results ]
@@ -583,13 +573,13 @@ Because none of the evaluated coverage tools supported **condition coverage**, m
 
 The results indicate that **all methods in the `DataUtilities` class were executed by the test suite**, and therefore no additional tests were required to improve method coverage.
 
-*(Insert Screenshot – Method Coverage Results)*
+_(Insert Screenshot – Method Coverage Results)_
 
 ```
 [ IMAGE PLACEHOLDER – Method Coverage Results ]
 ```
 
-The method coverage table illustrates the number of methods executed during testing and confirms that the test suite successfully invokes each method under analysis. 
+The method coverage table illustrates the number of methods executed during testing and confirms that the test suite successfully invokes each method under analysis.
 
 ---
 
@@ -615,7 +605,7 @@ CodeCover is a coverage tool designed to support advanced coverage metrics inclu
 
 During the lab, an attempt was made to install the **CodeCover Eclipse plugin** using the standard Eclipse update mechanism.
 
-*(Insert Screenshot – CodeCover installation instructions)*
+_(Insert Screenshot – CodeCover installation instructions)_
 
 ```text
 [IMAGE PLACEHOLDER — CodeCover installation instructions]
@@ -623,25 +613,23 @@ During the lab, an attempt was made to install the **CodeCover Eclipse plugin** 
 
 However, an error occurred during installation, preventing the plugin from being successfully installed in the development environment.
 
-*(Insert Screenshot – CodeCover installation error)*
+![CodeCover Eclipse Plugin Installation Instructions](images/image10.png)
 
-```text
-[IMAGE PLACEHOLDER — CodeCover installation error]
-```
+_Figure X: Installation steps for the CodeCover Eclipse plugin using the Eclipse update mechanism._
 
-Because of this installation failure, CodeCover could not be used for the coverage analysis. 
+Because of this installation failure, CodeCover could not be used for the coverage analysis.
 
 ### Advantages
 
-* Supports advanced structural coverage metrics
-* Provides detailed reports for testing adequacy
-* Designed specifically for white-box testing analysis
+- Supports advanced structural coverage metrics
+- Provides detailed reports for testing adequacy
+- Designed specifically for white-box testing analysis
 
 ### Disadvantages
 
-* Installation issues prevented practical usage
-* Requires additional configuration within Eclipse
-* Less commonly integrated with modern development environments
+- Installation issues prevented practical usage
+- Requires additional configuration within Eclipse
+- Less commonly integrated with modern development environments
 
 ---
 
@@ -651,11 +639,11 @@ Clover is a widely used code coverage tool integrated with development environme
 
 Clover supports several basic coverage metrics including:
 
-* **Statement coverage**
-* **Branch coverage**
-* **Method coverage**
+- **Statement coverage**
+- **Branch coverage**
+- **Method coverage**
 
-*(Insert Screenshot – Clover coverage description)*
+_(Insert Screenshot – Clover coverage description)_
 
 ```text
 [IMAGE PLACEHOLDER — Clover documentation screenshot]
@@ -665,14 +653,14 @@ However, Clover does **not support condition coverage**, which limits its useful
 
 ### Advantages
 
-* Easy integration with development tools
-* Provides clear coverage reports
-* Supports multiple coverage metrics
+- Easy integration with development tools
+- Provides clear coverage reports
+- Supports multiple coverage metrics
 
 ### Disadvantages
 
-* Does not support condition coverage
-* Limited ability to analyze complex conditional expressions
+- Does not support condition coverage
+- Limited ability to analyze complex conditional expressions
 
 ---
 
@@ -682,23 +670,23 @@ JaCoCo is another commonly used Java coverage tool that provides detailed covera
 
 According to the JaCoCo documentation, the tool supports:
 
-* instruction coverage
-* line coverage
-* branch coverage
-* method coverage
+- instruction coverage
+- line coverage
+- branch coverage
+- method coverage
 
 However, JaCoCo also **does not support condition coverage**.
 
 ### Advantages
 
-* Lightweight and widely used in Java projects
-* Provides fast coverage analysis
-* Integrates well with build tools such as Maven and Gradle
+- Lightweight and widely used in Java projects
+- Provides fast coverage analysis
+- Integrates well with build tools such as Maven and Gradle
 
 ### Disadvantages
 
-* Does not support condition coverage
-* Limited analysis of compound logical conditions
+- Does not support condition coverage
+- Limited analysis of compound logical conditions
 
 ---
 
@@ -710,13 +698,13 @@ Similar to the other tools evaluated, Coverlipse provides support for several co
 
 ### Advantages
 
-* Simple integration with Eclipse
-* Provides quick visualization of executed code
+- Simple integration with Eclipse
+- Provides quick visualization of executed code
 
 ### Disadvantages
 
-* Does not support condition coverage
-* Limited support for advanced coverage metrics
+- Does not support condition coverage
+- Limited support for advanced coverage metrics
 
 ---
 
@@ -742,6 +730,7 @@ Method coverage was used as a **substitute metric** for condition coverage to en
 The evaluation of coverage tools revealed that while several tools support basic structural coverage metrics, **none of the evaluated tools provided support for condition coverage within the lab environment**. As a result, the coverage analysis relied on line coverage, branch coverage, and method coverage to evaluate the adequacy of the test suite.
 
 ---
+
 # 7 A comparison on the advantages and disadvantages of requirements-based test generation and coverage-based test generation
 
 Software testing strategies can broadly be categorized into **requirements-based testing** and **coverage-based testing**. These two approaches focus on different aspects of the system and serve complementary purposes in ensuring software reliability.
@@ -756,16 +745,16 @@ Requirements-based testing focuses on verifying whether the system behaves accor
 
 ### Advantages
 
-* Ensures that the system satisfies **functional requirements**.
-* Focuses on **user-visible behavior**, making it highly relevant to real-world usage.
-* Helps validate system functionality even without access to source code.
-* Useful for **black-box testing scenarios**.
+- Ensures that the system satisfies **functional requirements**.
+- Focuses on **user-visible behavior**, making it highly relevant to real-world usage.
+- Helps validate system functionality even without access to source code.
+- Useful for **black-box testing scenarios**.
 
 ### Disadvantages
 
-* May fail to exercise **internal program logic paths**.
-* Some code segments may remain untested if they are not directly linked to requirements.
-* Limited ability to detect **implementation-level defects**.
+- May fail to exercise **internal program logic paths**.
+- Some code segments may remain untested if they are not directly linked to requirements.
+- Limited ability to detect **implementation-level defects**.
 
 ---
 
@@ -775,16 +764,16 @@ Coverage-based testing focuses on the internal structure of the program. Test ca
 
 ### Advantages
 
-* Ensures systematic exploration of the **program’s control flow**.
-* Identifies **untested code segments**.
-* Improves test completeness by ensuring that important execution paths are covered.
-* Helps detect **implementation errors and hidden logical defects**.
+- Ensures systematic exploration of the **program’s control flow**.
+- Identifies **untested code segments**.
+- Improves test completeness by ensuring that important execution paths are covered.
+- Helps detect **implementation errors and hidden logical defects**.
 
 ### Disadvantages
 
-* High coverage does not necessarily guarantee **correct functionality**.
-* Some generated tests may not correspond to realistic user scenarios.
-* May require access to source code and deeper understanding of program internals.
+- High coverage does not necessarily guarantee **correct functionality**.
+- Some generated tests may not correspond to realistic user scenarios.
+- May require access to source code and deeper understanding of program internals.
 
 ---
 
@@ -807,7 +796,6 @@ In practice, effective testing strategies combine both approaches. Requirements-
 
 By integrating both methods, testers can achieve higher confidence in both **functional correctness** and **structural reliability** of the software system.
 
-
 ---
 
 # 8 A discussion on how the team work/effort was divided and managed
@@ -820,23 +808,21 @@ Maheen and Dipu worked on the **Range** class. Their responsibilities included a
 
 The team coordinated regularly to ensure consistency in testing methodology, coverage analysis, and documentation style across both parts of the assignment. This division of work allowed the group to analyze both classes in depth while maintaining a structured and organized workflow throughout the lab.
 
-
 ---
 
 # 9 Any difficulties encountered, challenges overcome, and lessons learned from performing the lab
 
 During the execution of this lab, several challenges were encountered while performing the coverage analysis and designing adequate unit tests. These challenges required both manual analysis and experimentation with different testing tools.
 
-One major difficulty was the **lack of support for condition coverage in the available coverage tools**. Several tools were evaluated, including CodeCover, Clover, JaCoCo, and Coverlipse. Although CodeCover theoretically supports condition coverage, the installation of the Eclipse plugin failed due to compatibility issues, preventing its use during the lab. The remaining tools only supported line, branch, and method coverage. 
+One major difficulty was the **lack of support for condition coverage in the available coverage tools**. Several tools were evaluated, including CodeCover, Clover, JaCoCo, and Coverlipse. Although CodeCover theoretically supports condition coverage, the installation of the Eclipse plugin failed due to compatibility issues, preventing its use during the lab. The remaining tools only supported line, branch, and method coverage.
 
-Another challenge involved identifying **infeasible code paths** in the `DataUtilities` methods. Certain loop conditions in methods such as `calculateColumnTotal`, `calculateRowTotal`, and `getCumulativePercentages` were logically impossible to satisfy because the dataset size variables cannot be negative. This required careful manual inspection of the source code to determine why some lines remained uncovered during coverage analysis. 
+Another challenge involved identifying **infeasible code paths** in the `DataUtilities` methods. Certain loop conditions in methods such as `calculateColumnTotal`, `calculateRowTotal`, and `getCumulativePercentages` were logically impossible to satisfy because the dataset size variables cannot be negative. This required careful manual inspection of the source code to determine why some lines remained uncovered during coverage analysis.
 
 Performing **data-flow analysis** also presented difficulties. Determining the definition-use relationships for variables required careful tracking of variable definitions and their subsequent uses across different statements and loop structures. In addition, the for-loop constructs had to be separated into initialization, comparison, and increment statements in order to correctly construct the data-flow graph and identify DU-pairs.
 
 Despite these challenges, the lab provided valuable experience in applying structural testing techniques. It demonstrated how coverage metrics can help identify untested parts of a program and guide the creation of additional test cases.
 
 Overall, the lab highlighted the importance of combining **manual code analysis with automated testing tools**. It also reinforced the idea that high coverage metrics must be interpreted carefully, especially when infeasible paths exist in the program.
-
 
 ---
 
@@ -851,7 +837,3 @@ The lab also highlighted practical challenges associated with testing tools. Sev
 Overall, the lab was effective in helping students understand the relationship between **code coverage metrics and software reliability**. It provided a practical perspective on how systematic testing approaches can improve software quality and ensure that critical execution paths are adequately tested.
 
 ---
-
-
-
-
